@@ -3,16 +3,19 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <map>
 #include "Book.cpp"
 #include "Library.cpp"
 
-//Book createBook(int id) {
-//	return new Book(id);
-//}
-//
-//Library createLibrary(std::vector<Books> books, int scanTime, int shipBooksPerDay) {
-//	return new Library(books, scanTime, shipBooksPerDay);
-//}
+Book createBook(int id) {
+	//return new Book(id);
+	// TODO
+	return Book();
+}
+
+Library createLibrary(std::vector<Book> books, int scanTime, int shipBooksPerDay) {
+	return Library(books, scanTime, shipBooksPerDay);
+}
 
 int main() {
 
@@ -27,24 +30,52 @@ int main() {
 		std::getline(infile, mainLine);
 		
 		int numberOfLibraries, numberOfBooks, numberOfDays;
-		std::istringstream is(mainLine);
-		mainLine >> numberOfLibraries >> numberOfBooks >> numberOfDays;
+		std::istringstream mainLineIs(mainLine);
+		mainLineIs >> numberOfLibraries >> numberOfBooks >> numberOfDays;
 
 		// second line contains books ids
 		std::string booksLine;
 		std::getline(infile, booksLine);
 
-		// each of the next 2 lines contains information of
+		// initialize map of unique books with key id and value book
+		std::map<int, Book> books;
+		int currBook = 0;
+		std::istringstream booksLineIs(booksLine);
+		int id;
+		while (currBook <= numberOfBooks && booksLineIs >> id)
+		{
+			Book book = createBook(id);
+			books.insert(std::pair<int, Book>(id, book));
+		}
+
+		//for (std::map<int, Book*>::const_iterator it = books.begin();
+		//	it != books.end(); ++it)
+		//{
+		//	std::cout << it->first << " " << it->second << std::endl;
+		//}
+
+		// each of the next 2 lines contains information of:
 		// 1) first line has information for the library, how many books are there, how many days it takes to signup the library and how many books a library can process per 
 		// 2) second line contains information for which books are in the library
 		std::string libraryInfo;
-		std::string booksInLibrary;
+		std::string booksIdsInLibrary;
 
-		while (std::getline(infile, libraryInfo) && std::getline(infile, booksInLibrary))
+		while (std::getline(infile, libraryInfo) && std::getline(infile, booksIdsInLibrary))
 		{
 			// process line
+			std::istringstream libraryInfoIs(libraryInfo);
+			int booksInLibraryNumber, scanTime, shipBooksPerDay;
+			libraryInfoIs >> booksInLibraryNumber >> scanTime >> shipBooksPerDay;
+
+			std::vector<Book> booksInLibrary;
+			std::istringstream booksIdsInLibraryIs(booksIdsInLibrary);
+			int bookId;
+			while (booksIdsInLibraryIs >> bookId)
+			{
+				Book currentBook = books[bookId];
+			}
 			std::cout << libraryInfo << std::endl;
-			std::cout << booksInLibrary << std::endl;
+			std::cout << booksIdsInLibrary << std::endl;
 		}
 
 		// close file
