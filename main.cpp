@@ -8,9 +8,7 @@
 #include "Library.cpp"
 
 Book createBook(int id) {
-	//return new Book(id);
-	// TODO
-	return Book();
+	return Book(id);
 }
 
 Library createLibrary(std::vector<Book> books, int scanTime, int shipBooksPerDay) {
