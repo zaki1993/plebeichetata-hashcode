@@ -60,6 +60,7 @@ int main() {
 		std::string libraryInfo;
 		std::string booksIdsInLibrary;
 
+		std::vector<Library> libraries;
 		while (std::getline(infile, libraryInfo) && std::getline(infile, booksIdsInLibrary))
 		{
 			// process line
@@ -67,15 +68,18 @@ int main() {
 			int booksInLibraryNumber, scanTime, shipBooksPerDay;
 			libraryInfoIs >> booksInLibraryNumber >> scanTime >> shipBooksPerDay;
 
+			// insert all the books for this library
 			std::vector<Book> booksInLibrary;
 			std::istringstream booksIdsInLibraryIs(booksIdsInLibrary);
 			int bookId;
 			while (booksIdsInLibraryIs >> bookId)
 			{
 				Book currentBook = books[bookId];
+				booksInLibrary.push_back(currentBook);
 			}
-			std::cout << libraryInfo << std::endl;
-			std::cout << booksIdsInLibrary << std::endl;
+			// insert library into the vector of libraries
+			Library library = createLibrary(booksInLibrary, scanTime, shipBooksPerDay);
+			libraries.push_back(library);
 		}
 
 		// close file
