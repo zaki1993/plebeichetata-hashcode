@@ -11,8 +11,8 @@ Book createBook(int id) {
 	return Book(id);
 }
 
-Library createLibrary(std::vector<Book> books, int scanTime, int shipBooksPerDay) {
-	return Library(books, scanTime, shipBooksPerDay);
+Library createLibrary(int id, std::vector<Book> books, int scanTime, int shipBooksPerDay) {
+	return Library(id, books, scanTime, shipBooksPerDay);
 }
 
 int main() {
@@ -46,12 +46,6 @@ int main() {
 			books.insert(std::pair<int, Book>(id, book));
 		}
 
-		//for (std::map<int, Book*>::const_iterator it = books.begin();
-		//	it != books.end(); ++it)
-		//{
-		//	std::cout << it->first << " " << it->second << std::endl;
-		//}
-
 		// each of the next 2 lines contains information of:
 		// 1) first line has information for the library, how many books are there, how many days it takes to signup the library and how many books a library can process per 
 		// 2) second line contains information for which books are in the library
@@ -59,6 +53,7 @@ int main() {
 		std::string booksIdsInLibrary;
 
 		std::vector<Library> libraries;
+		int currentLibraryNumber = 0;
 		while (std::getline(infile, libraryInfo) && std::getline(infile, booksIdsInLibrary))
 		{
 			// process line
@@ -76,8 +71,20 @@ int main() {
 				booksInLibrary.push_back(currentBook);
 			}
 			// insert library into the vector of libraries
-			Library library = createLibrary(booksInLibrary, scanTime, shipBooksPerDay);
+			Library library = createLibrary(currentLibraryNumber++, booksInLibrary, scanTime, shipBooksPerDay);
 			libraries.push_back(library);
+		}
+
+		for (int i = 0; i < libraries.size(); i++) 
+		{
+			Library currentLibrary = libraries.at(i);
+			std::cout << "Process library id=" << currentLibrary.getId() << ", scanTime=" << currentLibrary.getScanTime() << ", shipBooksPerDay=" << currentLibrary.getShipBooksPerDay() << std::endl;
+			std::vector<Book> libraryBooks = currentLibrary.getBooks();
+			for (int j = 0; j < libraryBooks.size(); j++)
+			{
+				Book currentBook = libraryBooks.at(j);
+				std::cout << currentBook.getId() << std::endl;
+			}
 		}
 
 		// close file
