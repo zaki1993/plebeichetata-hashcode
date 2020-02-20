@@ -1,2 +1,7 @@
-﻿  main.cpp
-  plebeichetata.vcxproj -> C:\Users\streetzaki96\source\repos\plebeichetata\Debug\plebeichetata.exe
+﻿  Library.cpp
+  main.cpp
+D:\Catherina\DOWNLOADS\hashcode\plebeichetata-hashcode\main.cpp(29,7): warning C4101: 'numberOfLibraries': unreferenced local variable
+D:\Catherina\DOWNLOADS\hashcode\plebeichetata-hashcode\main.cpp(29,41): warning C4101: 'numberOfDays': unreferenced local variable
+D:\Catherina\DOWNLOADS\hashcode\plebeichetata-hashcode\main.cpp(29,26): warning C4101: 'numberOfBooks': unreferenced local variable
+  Generating Code...
+  plebeichetata.vcxproj -> D:\Catherina\DOWNLOADS\hashcode\plebeichetata-hashcode\Debug\plebeichetata.exe
